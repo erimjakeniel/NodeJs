@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+    body{
+        background-image: url("https://ballawyers.com.au/wp-content/uploads/Employment-Contract-for-an-employee-covered-by-a-Modern-Award-or-Enterprise-Agreement.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+    }
+    .card{
+        background-color:#A9DEF9;
+    }
+</style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="form createForm">
+                <div class="card container">
+                    <br>
+                    <h2 class="ui center aligned icon header">
+                        <i class="circular users icon"></i>
+                        Add Students
+                    </h2>
+                    <div class="ui fluid form">
+                        <div class="field" placeholder="Subject">
+                            <div class="ui divider"></div>
+                            <div class="field" placeholder="Last Name">
+                                <div class="ui pointing below red basic label">
+                                    Subject Name
+                                </div>
+                                <input id="subject" type="text" required>
+                            </div>
+                        </div>
+                        <div class="field" placeholder="Name">
+                            <div class="ui divider"></div>
+                            <div class="field" placeholder="Last Name">
+                                <div class="ui pointing below red basic label">
+                                    Student's Name
+                                </div>
+                                <input id="name" type="text" required>
+                            </div>
+                        </div>
+                        <div class="field" placeholder="Email">
+                            <div class="ui divider"></div>
+                            <div class="field" placeholder="Last Name">
+                                <div class="ui pointing below red basic label">
+                                    Student's Email
+                                </div>
+                                <input id="email" type="email" required>
+                            </div>
+                        </div>
+                        <div class="field" placeholder="Course">
+                            <div class="ui divider"></div>
+                            <div class="field" placeholder="Last Name">
+                                <div class="ui pointing below red basic label">
+                                    Student's Course
+                                </div>
+                                <input id="course" type="text" required>
+                            </div>
+                        </div>
+                        <div class="field" placeholder="Year">
+                            <div class="ui divider"></div>
+                            <div class="field" placeholder="Last Name">
+                                <div class="ui pointing below red basic label">
+                                    Student's Year
+                                </div>
+                                <input id="year" type="text" required>
+                            </div>
+                        </div>
+                        <center>
+                            <button type="button" class="ui right wifi icon positive button button btn-enroll">
+                                <i class="id badge icon"></i>
+                                Enroll Student
+
+                            </button>
+                            <br><br>
+                        </center>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('button').click(function () {
+                $.ajax({
+                    url: 'http://127.0.0.1:8000',
+                    crossDomain: 'true',
+                    data: JSON.stringify({
+                        subject: $("#subject").val(),
+                        name: $("#name").val(),
+                        email: $("#email").val(),
+                        course: $("#course").val(),
+                        year: $('#year').val()
+                    }),
+                    type: 'POST',
+                    success: function (response) {
+                        console.log(response);
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Successfully Enroll!',
+                            showConfirmButton: false,
+                            timer: 800
+                        })
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Enroll Failed!',
+                            showConfirmButton: false,
+                            timer: 800
+                        })
+                    }
+                })
+            })
+        });
+    </script>
+
+</body>
+
+</html>
