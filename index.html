@@ -2,24 +2,26 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
         integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-<style>
-    body{
-        background-image: url("https://ballawyers.com.au/wp-content/uploads/Employment-Contract-for-an-employee-covered-by-a-Modern-Award-or-Enterprise-Agreement.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100%;
-    }
-    .card{
-        background-color:#A9DEF9;
-    }
-</style>
+    <style>
+        body {
+            background-image: url("https://ballawyers.com.au/wp-content/uploads/Employment-Contract-for-an-employee-covered-by-a-Modern-Award-or-Enterprise-Agreement.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100%;
+        }
+
+        .card {
+            background-color: #A9DEF9;
+        }
+    </style>
 </head>
 
 <body>
@@ -99,38 +101,58 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('button').click(function () {
-                $.ajax({
-                    url: 'http://127.0.0.1:8000',
-                    crossDomain: 'true',
-                    data: JSON.stringify({
-                        subject: $("#subject").val(),
-                        name: $("#name").val(),
-                        email: $("#email").val(),
-                        course: $("#course").val(),
-                        year: $('#year').val()
-                    }),
-                    type: 'POST',
-                    success: function (response) {
-                        console.log(response);
-                        Swal.fire({
-                            type: 'success',
-                            title: 'Successfully Enroll!',
-                            showConfirmButton: false,
-                            timer: 800
-                        })
-                    },
-                    error: function (err) {
-                        console.log(err);
-                        Swal.fire({
-                            type: 'error',
-                            title: 'Enroll Failed!',
-                            showConfirmButton: false,
-                            timer: 800
-                        })
-                    }
-                })
+            $('button').click(function (e) {
+                e.preventDefault();
+                var subject = $("#subject").val();
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var course = $("#course").val();
+                var year = $('#year').val();
+
+                if (subject == ""|| name == "" || email == "" || course == ""|| year == "") {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Enroll Failed!',
+                        showConfirmButton: false,
+                        timer: 800
+                    })
+                }
+                else {
+                    $.ajax({
+                        url: 'http://localhost:8080/enroll',
+                        crossDomain: 'true',
+                        data: JSON.stringify({
+                            subject: subject,
+                            name: name,
+                            email: email,
+                            course: course,
+                            year: year
+                        }),
+                        type: 'POST',
+                        success: function (response) {
+                            console.log(response);
+                            Swal.fire({
+                                type: 'success',
+                                title: 'Successfully Enroll!',
+                                showConfirmButton: false,
+                                timer: 800
+                            })
+
+                        },
+                        error: function (err) {
+                            console.log(err);
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Enroll Failed!',
+                                showConfirmButton: false,
+                                timer: 800
+                            })
+                        }
+                    })
+                    $('input').val(null);
+                }
             })
+
         });
     </script>
 

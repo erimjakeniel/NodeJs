@@ -1,5 +1,4 @@
 var fs = require('fs');
-var port = 8000;
 
 exports.addFile = (function (req, res) {
     var myData = "";
@@ -13,9 +12,6 @@ exports.addFile = (function (req, res) {
         fs.appendFile(fileName.toLowerCase() + ".csv", text , function (err) {
             if (err) throw err;
             console.log('Saved!');
-        });
-        req.on('end', function () {
-            res.writeHead(200, { 'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*' });
         });
     });
 
